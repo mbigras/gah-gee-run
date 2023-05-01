@@ -1,0 +1,11 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - us-west1-docker.pkg.dev/playfulpanda/my-repo/gah-gee-run:$COMMIT_SHA
+      - app
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - us-west1-docker.pkg.dev/playfulpanda/my-repo/gah-gee-run:$COMMIT_SHA
