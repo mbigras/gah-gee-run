@@ -21,6 +21,11 @@ steps:
       - --image=us-west1-docker.pkg.dev/${PROJECT_ID}/my-repo/gah-gee-run:$COMMIT_SHA
       - --command=/app/entrypoint2.sh
       - --args=foo,bar,baz
+      - --clear-env-vars
+      - --set-env-vars=ENV=preprod
+      - --set-env-vars=TAG=$COMMIT_SHA
+      - --set-env-vars=FEATURES=some,preprod,features
+      - --set-env-vars=SECRETS=some,preprod,secrets,todostopleakinginversioncontrol!
       - --project=${PROJECT_ID}
       - --no-allow-unauthenticated
       - --region=us-west1
