@@ -24,7 +24,7 @@ steps:
       - --set-env-vars=ENV=preprod
       - --set-env-vars=TAG=$COMMIT_SHA
       - --set-env-vars=FEATURES=some;preprod;features
-      - --set-env-vars=SECRETS=some;preprod;secrets;todostopleakinginversioncontrol!
+      # - --set-env-vars=SECRETS=some;preprod;secrets;todostopleakinginversioncontrol!
       - --project=${PROJECT_ID}
       - --no-allow-unauthenticated
       - --region=us-west1
