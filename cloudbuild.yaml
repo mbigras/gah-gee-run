@@ -3,9 +3,25 @@ steps:
     args:
       - build
       - -t
-      - us-west1-docker.pkg.dev/playfulpanda/my-repo/gah-gee-run:$COMMIT_SHA
+      - us-west1-docker.pkg.dev/${PROJECT_ID}/my-repo/gah-gee-run:$COMMIT_SHA
       - app
+
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - us-west1-docker.pkg.dev/playfulpanda/my-repo/gah-gee-run:$COMMIT_SHA
+      - us-west1-docker.pkg.dev/${PROJECT_ID}/my-repo/gah-gee-run:$COMMIT_SHA
+
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    timeout: 240s
+    args:
+      - run
+      - deploy
+      - gah-gee-run
+      - --image=us-west1-docker.pkg.dev/${PROJECT_ID}/my-repo/gah-gee-run:$COMMIT_SHA
+      - --command=/app/entrypoint2.sh
+      - --args foo,bar,baz
+      - --project=${PROJECT_ID}
+      - --no-allow-unauthenticated
+      - --region=us-west1
+      - --platform=managed
